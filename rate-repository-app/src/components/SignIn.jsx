@@ -1,4 +1,4 @@
-import Text from './Text';
+import Text from "react-native";
 
 const SignIn = () => {
     return <Text>The sign-in view</Text>;
