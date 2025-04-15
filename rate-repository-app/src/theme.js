@@ -6,8 +6,10 @@ const theme = {
     appBarBackground: "#24292e",
     textPrimary: "#ffffff",
     backgroundPrimary: "#ffffff",
+    languageTag: "#0366d6",
     borderColor: "#000000",
     shadowColor: "#000000",
+    mainBackground: "#e1e4e8",
   },
   fontSizes: {
     heading: 20,
