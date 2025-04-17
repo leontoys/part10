@@ -26,11 +26,6 @@ const AppBar = () => {
                 <Link to="/sign-in">
                     <AppBarTab text="Sign In" />
                 </Link>
-                {/* Add more tabs here to test scrollability */}
-                <Link to="/tab1"><AppBarTab text="Tab1" /></Link>
-                <Link to="/tab2"><AppBarTab text="Tab2" /></Link>
-                <Link to="/tab3"><AppBarTab text="Tab3" /></Link>
-                <Link to="/tab4"><AppBarTab text="Tab4" /></Link>
             </ScrollView>
         </View>
     );
