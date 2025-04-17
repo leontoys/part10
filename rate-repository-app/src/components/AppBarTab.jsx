@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     text: {
         color: theme.colors.textPrimary,
         fontSize: theme.fontSizes.heading,
+        marginRight: 20
     },
 });
 
