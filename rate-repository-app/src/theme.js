@@ -1,5 +1,6 @@
 // theme.js
 import Constants from "expo-constants";
+import { Platform } from "react-native";
 
 const theme = {
   colors: {
@@ -10,6 +11,14 @@ const theme = {
     borderColor: "#000000",
     shadowColor: "#000000",
     mainBackground: "#e1e4e8",
+  },
+  fonts: {
+    main:
+      Platform.OS === "android"
+        ? "Roboto"
+        : Platform.OS === "android"
+        ? "Arial"
+        : "System", //default
   },
   fontSizes: {
     heading: 20,
