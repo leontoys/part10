@@ -3,6 +3,8 @@ import RepositoryItem from './RepositoryItem';
 import theme from '../theme';
 import { useState, useEffect } from 'react';
 import useRepositories from '../hooks/useRepositories';
+import { gql, useQuery } from '@apollo/client'
+import { GET_REPOSITORIES } from "../graphql/queries";
 
 const styles = StyleSheet.create({
     separator: {
@@ -14,7 +16,16 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
 
-    const { repositories } = useRepositories();
+    const result = useQuery(GET_REPOSITORIES, {
+        fetchPolicy: 'cache-and-network',
+    });
+
+    if (result.loading) {
+        return <div>loading...</div>
+    }
+
+    console.log(result);
+    const { repositories } = result?.data;
 
     // Get the nodes from the edges array
     const repositoryNodes = repositories
