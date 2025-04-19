@@ -2,6 +2,8 @@ import { View, Text, TextInput, Button, Pressable, StyleSheet } from "react-nati
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useSignIn } from "../hooks/useSignIn";
+import AuthStorage from "../utils/authStorage";
+import { useState } from "react";
 
 const styles = StyleSheet.create({
     input: {
@@ -50,6 +52,12 @@ const getInputStyle = (touched, error) => {
 }
 
 const SignIn = () => {
+
+    const auth = new AuthStorage();
+
+    const [token, setToken] = useState(auth.getAccessToken() || "")
+    console.log("token", token)
+
     const [signIn] = useSignIn();
 
     const onSubmit = async (values) => {
@@ -58,7 +66,9 @@ const SignIn = () => {
         try {
             console.log("calling sigin in with", username, password)
             const { data } = await signIn({ username, password });
-            console.log(data);
+            console.log(data.authenticate.accessToken);
+            auth.setAccessToken(data.authenticate.accessToken);
+            setToken(data.authenticate.accessToken);
         } catch (e) {
             console.log(e);
         }
