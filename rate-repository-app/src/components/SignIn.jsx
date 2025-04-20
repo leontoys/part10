@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { useSignIn } from "../hooks/useSignIn";
 import AuthStorage from "../utils/authStorage";
 import { useState } from "react";
+import useAuthStorage from '../hooks/useAuthStorage';
 
 const styles = StyleSheet.create({
     input: {
@@ -53,10 +54,9 @@ const getInputStyle = (touched, error) => {
 
 const SignIn = () => {
 
-    const auth = new AuthStorage();
-
-    const [token, setToken] = useState(auth.getAccessToken() || "")
-    console.log("token", token)
+    const authStorage = useAuthStorage();
+    // const [token, setToken] = useState(auth.getAccessToken() || "")
+    // console.log("token", token)
 
     const [signIn] = useSignIn();
 
@@ -67,8 +67,8 @@ const SignIn = () => {
             console.log("calling sigin in with", username, password)
             const { data } = await signIn({ username, password });
             console.log(data.authenticate.accessToken);
-            auth.setAccessToken(data.authenticate.accessToken);
-            setToken(data.authenticate.accessToken);
+            //auth.setAccessToken(data.authenticate.accessToken);
+            // setToken(data.authenticate.accessToken);
         } catch (e) {
             console.log(e);
         }

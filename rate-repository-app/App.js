@@ -5,17 +5,20 @@ import createApolloClient from "./src/utils/apolloClient";
 import Constants from "expo-constants";
 import React from "react";
 import { StatusBar } from "react-native-web";
+import AuthStorage from "./src/utils/authStorage";
+import AuthStorageContext from "./src/contexts/AuthStorageContext";
 
-const apolloClient = createApolloClient();
+const authStorage = new AuthStorage();
+const apolloClient = createApolloClient(authStorage); //pass storage to appollo client
 
 const App = () => {
-  console.log(Constants.expoConfig);
-
   return (
     <>
       <NativeRouter>
         <ApolloProvider client={apolloClient}>
-          <Main />
+          <AuthStorageContext.Provider value={authStorage}>
+            <Main />
+          </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>
       <StatusBar barStyle="auto" />
