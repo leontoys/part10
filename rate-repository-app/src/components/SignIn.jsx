@@ -5,6 +5,8 @@ import { useSignIn } from "../hooks/useSignIn";
 import AuthStorage from "../utils/authStorage";
 import { useState } from "react";
 import useAuthStorage from '../hooks/useAuthStorage';
+import { useNavigate } from "react-router-native"; // Import useNavigate
+
 
 const styles = StyleSheet.create({
     input: {
@@ -59,16 +61,20 @@ const SignIn = () => {
     // console.log("token", token)
 
     const [signIn] = useSignIn();
+    const navigate = useNavigate(); // Initialize useNavigate
+
 
     const onSubmit = async (values) => {
         const { username, password } = values;
 
         try {
             console.log("calling sigin in with", username, password)
-            const { data } = await signIn({ username, password });
+            const data = await signIn({ username, password });
             console.log(data.authenticate.accessToken);
-            //auth.setAccessToken(data.authenticate.accessToken);
-            // setToken(data.authenticate.accessToken);
+            if (data?.authenticate?.accessToken) {
+                navigate("/")
+            }
+
         } catch (e) {
             console.log(e);
         }
