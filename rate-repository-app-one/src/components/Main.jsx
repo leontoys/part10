@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
     container: {
         marginTop: Constants.statusBarHeight,
         flexGrow: 1,
-        flexShrink : 1
+        flexShrink: 1,
+        backgroundColor : '#e1e4e8'
     }
 })
 
