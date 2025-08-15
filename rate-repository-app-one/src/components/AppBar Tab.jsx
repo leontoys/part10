@@ -1,7 +1,8 @@
-import {View,StyleSheet, Pressable,Text} from 'react-native'
+import {View,StyleSheet, Pressable} from 'react-native'
 import Constants from 'expo-constants'
 import { Link } from 'react-router-native'
-
+import Text from './Text'
+    
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
