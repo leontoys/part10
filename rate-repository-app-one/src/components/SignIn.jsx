@@ -81,7 +81,7 @@ const SignIn = () => {
     //console.log(values)
     const { userName, password } = values 
     try {
-      const { data } = await signIn({ userName, password })
+      const data = await signIn({ userName, password })
       console.log("data",data)
     } catch (error) {
       console.log(error)
