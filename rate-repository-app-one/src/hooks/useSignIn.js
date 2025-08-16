@@ -9,7 +9,7 @@ const useSignIn = () => {
       console.log("hook", userName, password)
       console.log("mutate", mutate)
       //call mutate function with right arguments
-      const data = await mutate()
+      const data = await mutate({variables:{userName,password}})
       console.log("result", result);
       return data
     }
