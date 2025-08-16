@@ -74,7 +74,8 @@ useEffect(() => {
        fetchRepositories() 
 }, []) */
     
-    const { repositories }  = useRepositories()
+    const { repositories } = useRepositories() 
+    console.log("repositories", repositories ? repositories.edges : [])
     
 const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : []
 
