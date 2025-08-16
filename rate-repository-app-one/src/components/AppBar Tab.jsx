@@ -20,14 +20,22 @@ const styles = StyleSheet.create({
     }
 })
 
-const AppBarTab = ({ text, to }) => {
+const AppBarTab = ({ text, to, onPress }) => {
     console.log(to)
     return (
-        <View style={styles.container}>
+        to? (
             <Link to={to}>
-                <Text style={styles.text}>{text}</Text>
-            </Link>
-        </View>
+                <View style={styles.container}>
+                    <Text style={styles.text}>{text}</Text>
+                </View> 
+            </Link>) : 
+            (
+                <Pressable onPress={onPress}>
+                    <View style={styles.container}>
+                    <Text style={styles.text}>{text}</Text>  
+                </View>
+                </Pressable>
+            )
     )
 }
 
