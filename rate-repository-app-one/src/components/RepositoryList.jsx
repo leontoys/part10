@@ -58,26 +58,8 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-const RepositoryList = () => {
-
-/*     const [repositories, setRepositories] = useState()
-    
-    const fetchRepositories = async() => {
-    
-    const response = await fetch("http://192.168.1.102:5000/api/repositories")
-    const json = await response.json()
-    console.log(json)
-    setRepositories(json)
-}
-    
-useEffect(() => {
-       fetchRepositories() 
-}, []) */
-    
-    const { repositories } = useRepositories() 
-    console.log("repositories", repositories ? repositories.edges : [])
-    
-const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : []
+export const RepositoryListContainer = ({ repositories }) => {
+    const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : []
 
     return (
         <FlatList
@@ -95,7 +77,15 @@ const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node)
                 ownerAvatarUrl={item.ownerAvatarUrl}
             />}
         />
-    );
+    );    
+}
+
+const RepositoryList = () => {
+    
+    const { repositories } = useRepositories() 
+    
+    return <RepositoryListContainer repositories={repositories}/>
+
 };
 
 export default RepositoryList;
