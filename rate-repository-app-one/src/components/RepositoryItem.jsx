@@ -39,7 +39,7 @@ const RepositoryItem = ({
   fullName, description, language, stargazersCount, forksCount,
   reviewCount, ratingAverage, ownerAvatarUrl }) => {
   return (
-    <View style={styles.flexContainer}>
+    <View style={styles.flexContainer} testID='repositoryItem'>
       <View style={styles.flexItemA}>
         {<Image style={styles.image} source={{ uri: ownerAvatarUrl }}></Image>}
       </View>
