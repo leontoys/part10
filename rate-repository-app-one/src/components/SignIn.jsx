@@ -3,7 +3,7 @@ import { replace, useFormik } from 'formik'
 import * as yup from 'yup'
 import Text from './Text'
 import useSignIn from '../hooks/useSignIn'
-import { useNavigate  } from "react-router-native";
+import { useNavigate  } from "react-router";
 
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ const validationSchema = yup.object().shape({
   password : yup.string().required('Password is requried')
 })
 
-const SignInForm = ({ onSubmit }) => {
+export const SignInForm = ({ onSubmit }) => {
   //formik
   const formik = useFormik({
     initialValues,
