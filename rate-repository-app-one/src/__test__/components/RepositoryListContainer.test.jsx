@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { render, screen } from "@testing-library/react-native";
+import { render, screen, within } from "@testing-library/react-native";
 import { useState } from "react";
 import { TextInput, Pressable} from "react-native";
 import { fireEvent } from "@testing-library/react-native";
@@ -55,9 +55,10 @@ describe('RepositoryList', () => {
             render(<RepositoryListContainer repositories={repositories}></RepositoryListContainer>)
             const repositoryItems = screen.getAllByTestId('repositoryItem')
             const [firstItem, secondItem] = repositoryItems
-            screen.debug()
+            //screen.debug()
             expect(1).toBe(1);
-            expect(repositoryItems.toHaveTextContent('jaredpalmer/formik'))
+            //expect(repositoryItems.toHaveTextContent('jaredpalmer/formik'))
+            expect(within(firstItem).getByTestId('fullName')).toHaveTextContent('jaredpalmer/formik')
         });
     });
 });

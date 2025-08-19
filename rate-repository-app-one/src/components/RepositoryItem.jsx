@@ -44,7 +44,7 @@ const RepositoryItem = ({
         {<Image style={styles.image} source={{ uri: ownerAvatarUrl }}></Image>}
       </View>
       <View style={styles.flexItemB}>
-        {<Text style={styles.name}>{fullName}</Text>}
+        {<Text testID="fullName" style={styles.name}>{fullName}</Text>}
         {<Text>{description}</Text>}
         {<Text style={styles.language}>{language}</Text>}
         {<Text>{stargazersCount > 1000 ? `${Math.floor(stargazersCount / 1000)}K` : stargazersCount} Stars</Text>}
