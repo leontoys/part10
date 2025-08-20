@@ -1,6 +1,8 @@
 import { View, StyleSheet, Image } from 'react-native';
 import Text from './Text'
 import { useParams } from 'react-router-native';
+import { useQuery } from '@apollo/client';
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
 
 const styles = StyleSheet.create({
@@ -41,7 +43,19 @@ const RepositoryItem = ({
   reviewCount, ratingAverage, ownerAvatarUrl }) => {
   
   let {id} = useParams()
-  console.log("params",id)
+  console.log("params", id)
+/*   if(id){
+  const result = useQuery('GET_REPO', {
+    variables: { id }
+  })
+  loadDevMessages();
+  loadErrorMessages();
+    console.log(result)
+  } */
+
+  //if (loading) return <View></View>
+  //if (error) return <View></View>
+  //console.log(data)
   
   return (
     <View style={styles.flexContainer} testID='repositoryItem'>
