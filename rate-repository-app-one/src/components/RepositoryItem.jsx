@@ -3,6 +3,7 @@ import Text from './Text'
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
+import { GET_REPO } from '../graphql/queries';
 
 
 const styles = StyleSheet.create({
@@ -44,18 +45,24 @@ const RepositoryItem = ({
   
   let {id} = useParams()
   console.log("params", id)
-/*   if(id){
-  const result = useQuery('GET_REPO', {
+  if(id){
+  const { data,loading,error } = useQuery(GET_REPO, {
     variables: { id }
   })
-  loadDevMessages();
-  loadErrorMessages();
-    console.log(result)
-  } */
 
-  //if (loading) return <View></View>
-  //if (error) return <View></View>
-  //console.log(data)
+  if (loading) return null
+  if (error) return null
+  
+    fullName = data.repository.fullName
+    description = data.repository.description
+    language = data.repository.language
+    stargazersCount = data.repository.stargazersCount
+    forksCount = data.repository.forksCount
+    reviewCount = data.repository.reviewCount
+    ratingAverage = data.repository.ratingAverage
+    ownerAvatarUrl = data.repository.ownerAvatarUrl
+    
+  }
   
   return (
     <View style={styles.flexContainer} testID='repositoryItem'>

@@ -32,9 +32,15 @@ export const GET_USER = gql`
 export const GET_REPO = gql`
   query FindRepoById($id: ID!) {
     repository(id: $id) {
-      id
       fullName
-      url
+      description
+      language
+      forksCount
+      stargazersCount
+      ratingAverage
+      reviewCount
+      ownerAvatarUrl
+      id
     }
   }
 `;
