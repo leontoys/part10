@@ -1,5 +1,6 @@
 import { View, StyleSheet, Image } from 'react-native';
 import Text from './Text'
+import { useParams } from 'react-router-native';
 
 
 const styles = StyleSheet.create({
@@ -38,6 +39,10 @@ const styles = StyleSheet.create({
 const RepositoryItem = ({
   fullName, description, language, stargazersCount, forksCount,
   reviewCount, ratingAverage, ownerAvatarUrl }) => {
+  
+  let {id} = useParams()
+  console.log("params",id)
+  
   return (
     <View style={styles.flexContainer} testID='repositoryItem'>
       <View style={styles.flexItemA}>
