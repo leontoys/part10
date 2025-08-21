@@ -52,30 +52,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({
   fullName, description, language, stargazersCount, forksCount,
-  reviewCount, ratingAverage, ownerAvatarUrl }) => {
-  
-  let url = null
-  let {id} = useParams()
-  console.log("params", id)
-  if(id){
-  const { data,loading,error } = useQuery(GET_REPO, {
-    variables: { id }
-  })
-
-  if (loading) return null
-  if (error) return null
-  
-    fullName = data.repository.fullName
-    description = data.repository.description
-    language = data.repository.language
-    stargazersCount = data.repository.stargazersCount
-    forksCount = data.repository.forksCount
-    reviewCount = data.repository.reviewCount
-    ratingAverage = data.repository.ratingAverage
-    ownerAvatarUrl = data.repository.ownerAvatarUrl
-    url = data.repository.url 
-    console.log("url",url)
-  }
+  reviewCount, ratingAverage, ownerAvatarUrl, url=null }) => {
 
   const handlePress = () => {
     Linking.openURL(url)
