@@ -7,11 +7,37 @@ import { GET_REPO } from '../graphql/queries';
 import * as Linking from 'expo-linking'
 import RepositoryItem from './RepositoryItem';
 import { FlatList } from 'react-native';
+import { format } from "date-fns";
 
 const styles = StyleSheet.create({
     separator: {
         height: 10,
     },
+    flexContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        backgroundColor : 'white'
+    },
+    flexItemA: {
+        flexGrow: 1,
+        margin : 10
+    },
+    flexItemB: {
+        flexGrow: 1,
+        margin : 10
+    },
+    roundText: {
+        borderColor: '#0366d6',
+        borderStyle: 'solid',
+        color: '#0366d6',
+        borderWidth: 3,
+        borderRadius: 50,
+        textAlign: 'center',
+        padding : 5
+    },
+    boldText: {
+        fontWeight : 'bold'
+    }
 });
 
 const RepositoryInfo = ({ repository }) => {
@@ -22,7 +48,8 @@ const RepositoryInfo = ({ repository }) => {
             reviewCount, ratingAverage, ownerAvatarUrl, url
     } = repository
 
-    return (<RepositoryItem
+    return (
+        <><RepositoryItem
         fullName={fullName}
         description={description}
         language={language}
@@ -31,13 +58,26 @@ const RepositoryInfo = ({ repository }) => {
         reviewCount={reviewCount}
         ratingAverage={ratingAverage}
         ownerAvatarUrl={ownerAvatarUrl}
-        url={url}
-    />)
+            url={url} />
+            <ItemSeparator/>
+        </>)
 };
 
 const ReviewItem = ({ review }) => {
     // Single review item
-    console.log("review",review)
+    console.log("review", review)
+    return (
+           <View style={styles.flexContainer}>
+            <View style={styles.flexItemA}>
+                <Text style={styles.roundText}>{review.rating}</Text>
+              </View>
+            <View style={styles.flexItemB}>
+                <Text style={styles.boldText}>{ review.user.username }</Text>
+                <Text>{ format(review.createdAt,"dd.M.yyyy")}</Text>
+                <Text>{ review.text }</Text>
+                </View>
+            </View>
+    )
 };
 
 const ItemSeparator = () => <View style={styles.separator} />
