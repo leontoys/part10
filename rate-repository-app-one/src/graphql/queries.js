@@ -41,6 +41,7 @@ export const GET_REPO = gql`
       reviewCount
       ownerAvatarUrl
       id
+      url
     }
   }
 `;

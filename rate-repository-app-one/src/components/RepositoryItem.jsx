@@ -1,9 +1,10 @@
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Pressable } from 'react-native';
 import Text from './Text'
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 import { GET_REPO } from '../graphql/queries';
+import * as Linking from 'expo-linking'
 
 
 const styles = StyleSheet.create({
@@ -36,6 +37,16 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     borderRadius: 5,
     flexGrow : 0
+  },
+  pressable: {
+    backgroundColor: '#0366d6',
+    margin: '5',
+    borderRadius : 10
+  },
+  text: {
+    color: 'white',
+    textAlign: 'center',
+    padding : '5'
   }
 })
 
@@ -43,6 +54,7 @@ const RepositoryItem = ({
   fullName, description, language, stargazersCount, forksCount,
   reviewCount, ratingAverage, ownerAvatarUrl }) => {
   
+  let url = null
   let {id} = useParams()
   console.log("params", id)
   if(id){
@@ -61,7 +73,12 @@ const RepositoryItem = ({
     reviewCount = data.repository.reviewCount
     ratingAverage = data.repository.ratingAverage
     ownerAvatarUrl = data.repository.ownerAvatarUrl
-    
+    url = data.repository.url 
+    console.log("url",url)
+  }
+
+  const handlePress = () => {
+    Linking.openURL(url)
   }
   
   return (
@@ -77,6 +94,8 @@ const RepositoryItem = ({
         {<Text>{forksCount > 1000 ? `${Math.floor(forksCount / 1000)}K` : forksCount} Forks</Text>}
         {<Text>{reviewCount} Reviews</Text>}
         {<Text>{ratingAverage} Rating</Text>}
+        {url ? <Pressable style={styles.pressable} onPress={handlePress}>
+          <Text style={styles.text}>Open in Github</Text></Pressable> : <></>}
       </View>      
     </View>
   )
