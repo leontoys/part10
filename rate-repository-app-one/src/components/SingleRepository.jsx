@@ -8,6 +8,12 @@ import * as Linking from 'expo-linking'
 import RepositoryItem from './RepositoryItem';
 import { FlatList } from 'react-native';
 
+const styles = StyleSheet.create({
+    separator: {
+        height: 10,
+    },
+});
+
 const RepositoryInfo = ({ repository }) => {
     // Repository's information implemented in the previous exercise
 
@@ -31,7 +37,10 @@ const RepositoryInfo = ({ repository }) => {
 
 const ReviewItem = ({ review }) => {
     // Single review item
+    console.log("review",review)
 };
+
+const ItemSeparator = () => <View style={styles.separator} />
 
 const SingleRepository = () => {
     // ...
@@ -45,13 +54,19 @@ const SingleRepository = () => {
         if (loading) return null
         if (error) return null
 
-    const {repository} = data
+    const { repository } = data
+    const { reviews } = repository
+    console.log("reviews", reviews)
+
+    const reviewNodes = reviews ? reviews.edges.map(edge => edge.node) : []    
 
     return (
         <FlatList
-            //data={reviews}
-            //renderItem={({ item }) => <ReviewItem review={item} />}
-            //keyExtractor={({ id }) => id}
+            data={reviewNodes}
+            renderItem={({ item }) => <ReviewItem review={item} />}
+            keyExtractor={({ id }) => id}
+            ItemSeparatorComponent={ItemSeparator}
+
             ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
         // ...
         />
