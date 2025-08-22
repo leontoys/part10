@@ -3,6 +3,7 @@ import { replace, useFormik } from 'formik'
 import * as yup from 'yup'
 import Text from './Text'
 import useSignUp from '../hooks/useSignUp'
+import useSignIn from '../hooks/useSignIn'
 import { useNavigate  } from "react-router";
 
 
@@ -86,6 +87,7 @@ export const SignUpForm = ({ onSubmit }) => {
 
 const SignUp = () => {
   const [signUp] = useSignUp()
+  const [signIn] = useSignIn()
   const navigate = useNavigate()
 
   const onSubmit = async (values) => {
@@ -93,6 +95,7 @@ const SignUp = () => {
     const { userName, password } = values 
     try {
       await signUp({ userName, password })
+      await signIn({userName,password})
       navigate('/', { replace: true })
       
     } catch (error) {
