@@ -3,6 +3,8 @@ import RepositoryItem from './RepositoryItem';
 import { useEffect, useState } from 'react';
 import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
+import { Picker } from "@react-native-picker/picker";
+
 
 const styles = StyleSheet.create({
     separator: {
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories,selectedOrder,setSelectedOrder }) => {
     const repositoryNodes = repositories ? repositories.edges.map(edge => edge.node) : []
     let navigate = useNavigate()
 
@@ -71,6 +73,13 @@ export const RepositoryListContainer = ({ repositories }) => {
     return (
         <FlatList
             data={repositoryNodes}
+            ListHeaderComponent={<Picker selectedValue={selectedOrder}
+                onValueChange={(itemValue, itemIndex) => setSelectedOrder(itemValue)}>
+                <Picker.Item label="Order by Date (Ascending)" value="CREATED_AT-ASC"/>
+                <Picker.Item label="Order by Date (Descending)" value="CREATED_AT-DESC" />
+                <Picker.Item label="Order by Rating (Ascending)" value="RATING_AVERAGE-ASC" />
+                <Picker.Item label="Order by Rating (Descending)" value="RATING_AVERAGE-DESC" />
+                                 </Picker>}
             ItemSeparatorComponent={ItemSeparator}
             // other props
             renderItem={({ item }) =>
@@ -90,10 +99,11 @@ export const RepositoryListContainer = ({ repositories }) => {
 }
 
 const RepositoryList = () => {
+    const [selectedOrder, setSelectedOrder] = useState()
+    const { repositories } = useRepositories(selectedOrder) 
     
-    const { repositories } = useRepositories() 
-    
-    return <RepositoryListContainer repositories={repositories}/>
+    return <RepositoryListContainer repositories={repositories} selectedOrder={selectedOrder}
+                                    setSelectedOrder={setSelectedOrder}/>
 
 };
 
