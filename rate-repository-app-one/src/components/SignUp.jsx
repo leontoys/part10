@@ -32,15 +32,17 @@ const styles = StyleSheet.create({
 
 const initialValues = {
   userName: "",
-  password : ""
+  password: "",
+  passwordConfirm:""
 }
 
 const validationSchema = yup.object().shape({
   userName: yup.string().required('Username is required'),
-  password : yup.string().required('Password is requried')
+  password: yup.string().required('Password is requried'),
+  passwordConfirm: yup.string().oneOf([yup.ref('password')], 'Password does not match').required('Required')
 })
 
-export const SignInForm = ({ onSubmit }) => {
+export const SignUpForm = ({ onSubmit }) => {
   //formik
   const formik = useFormik({
     initialValues,
@@ -66,8 +68,16 @@ export const SignInForm = ({ onSubmit }) => {
       {formik.touched.password && formik.errors.password && (
         <Text style={{ color: 'red' }}>{ formik.errors.password}</Text>
       )}
+      <TextInput style={styles.text} secureTextEntry
+        placeholder='Confirm Password'
+        value={formik.values.passwordConfirm}
+        onChangeText={formik.handleChange('passwordConfirm')}>
+      </TextInput> 
+       {formik.touched.passwordConfirm && formik.errors.passwordConfirm && (
+        <Text style={{ color: 'red' }}>{formik.errors.passwordConfirm}</Text>
+      )} 
       <Pressable style={styles.pressable} onPress={formik.handleSubmit}>
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </Pressable> 
     </View>
   )
@@ -92,7 +102,7 @@ const SignUp = () => {
     }
     return (
       <View>
-            <SignInForm onSubmit={onSubmit}></SignInForm>
+            <SignUpForm onSubmit={onSubmit}></SignUpForm>
         </View>
   )
 }
