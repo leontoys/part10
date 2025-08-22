@@ -2,7 +2,7 @@ import { View, TextInput, Pressable, StyleSheet } from 'react-native'
 import { replace, useFormik } from 'formik'
 import * as yup from 'yup'
 import Text from './Text'
-import useSignIn from '../hooks/useSignIn'
+import useReview from  "../hooks/useReview";
 import { useNavigate  } from "react-router";
 
 
@@ -62,7 +62,7 @@ export const ReviewForm = ({ onSubmit }) => {
       {formik.touched.ownerName && formik.errors.ownerName && (
         <Text style={{ color: 'red' }}>{formik.errors.ownerName}</Text>
       )}
-      <TextInput style={styles.text} secureTextEntry
+      <TextInput style={styles.text} 
         placeholder='Repository Name'
         value={formik.values.repositoryName}
         onChangeText={formik.handleChange('repositoryName')}>
@@ -70,7 +70,7 @@ export const ReviewForm = ({ onSubmit }) => {
       {formik.touched.repositoryName && formik.errors.repositoryName && (
         <Text style={{ color: 'red' }}>{ formik.errors.repositoryName}</Text>
       )}
-      <TextInput style={styles.text} secureTextEntry
+      <TextInput style={styles.text} 
         placeholder='Text'
         value={formik.values.text}
         onChangeText={formik.handleChange('text')}>
@@ -78,7 +78,7 @@ export const ReviewForm = ({ onSubmit }) => {
       {formik.touched.text && formik.errors.text && (
         <Text style={{ color: 'red' }}>{formik.errors.text}</Text>
       )}
-      <TextInput style={styles.text} secureTextEntry
+      <TextInput style={styles.text} 
         placeholder='Rating between 0 and 100'
         value={formik.values.rating}
         onChangeText={formik.handleChange('rating')}>
@@ -87,7 +87,7 @@ export const ReviewForm = ({ onSubmit }) => {
         <Text style={{ color: 'red' }}>{formik.errors.rating}</Text>
       )}
       <Pressable style={styles.pressable} onPress={formik.handleSubmit}>
-        <Text style={styles.buttonText}>Sign In</Text>
+        <Text style={styles.buttonText}>Create a review</Text>
       </Pressable> 
     </View>
   )
@@ -95,14 +95,15 @@ export const ReviewForm = ({ onSubmit }) => {
 }
 
 const Review = () => {
-  const [signIn] = useSignIn()
+  const [review] = useReview()
   const navigate = useNavigate()
 
   const onSubmit = async (values) => {
 
-    const { userName, password } = values 
+    const { ownerName, repositoryName, text, rating } = values 
+    console.log("rating",rating)
     try {
-      await signIn({ userName, password })
+      await review({ ownerName,repositoryName,text,rating })
       navigate('/', { replace: true })
       
     } catch (error) {
