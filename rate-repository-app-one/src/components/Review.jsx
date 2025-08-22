@@ -31,14 +31,17 @@ const styles = StyleSheet.create({
 })
 
 const initialValues = {
-  userName: "",
-  password : ""
+  ownerName: "",
+  repositoryName: "",
+  text: "",
+  rating: ""
 }
 
 const validationSchema = yup.object().shape({
-  userName: yup.string().required('Username is required'),
-  password: yup.string().required('Password is requried'),
-  
+  ownerName: yup.string().required('Owner name is required'),
+  repositoryName: yup.string().required('Repository name is requried'),
+  text: yup.string().required('Text is required'),
+  rating:yup.number().required('Rating is required')
 })
 
 export const ReviewForm = ({ onSubmit }) => {
@@ -52,20 +55,36 @@ export const ReviewForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <TextInput style={styles.text}
-        placeholder='User Name'
-        value={formik.values.userName}
-        onChangeText={formik.handleChange('userName')}>
+        placeholder='Owner Name'
+        value={formik.values.ownerName}
+        onChangeText={formik.handleChange('ownerName')}>
       </TextInput>
-      {formik.touched.userName && formik.errors.userName && (
-        <Text style={{ color: 'red' }}>{formik.errors.userName}</Text>
+      {formik.touched.ownerName && formik.errors.ownerName && (
+        <Text style={{ color: 'red' }}>{formik.errors.ownerName}</Text>
       )}
       <TextInput style={styles.text} secureTextEntry
-        placeholder='Password'
-        value={formik.values.password}
-        onChangeText={formik.handleChange('password')}>
+        placeholder='Repository Name'
+        value={formik.values.repositoryName}
+        onChangeText={formik.handleChange('repositoryName')}>
       </TextInput>
-      {formik.touched.password && formik.errors.password && (
-        <Text style={{ color: 'red' }}>{ formik.errors.password}</Text>
+      {formik.touched.repositoryName && formik.errors.repositoryName && (
+        <Text style={{ color: 'red' }}>{ formik.errors.repositoryName}</Text>
+      )}
+      <TextInput style={styles.text} secureTextEntry
+        placeholder='Text'
+        value={formik.values.text}
+        onChangeText={formik.handleChange('text')}>
+      </TextInput>
+      {formik.touched.text && formik.errors.text && (
+        <Text style={{ color: 'red' }}>{formik.errors.text}</Text>
+      )}
+      <TextInput style={styles.text} secureTextEntry
+        placeholder='Rating between 0 and 100'
+        value={formik.values.rating}
+        onChangeText={formik.handleChange('rating')}>
+      </TextInput>
+      {formik.touched.rating && formik.errors.rating && (
+        <Text style={{ color: 'red' }}>{formik.errors.rating}</Text>
       )}
       <Pressable style={styles.pressable} onPress={formik.handleSubmit}>
         <Text style={styles.buttonText}>Sign In</Text>
