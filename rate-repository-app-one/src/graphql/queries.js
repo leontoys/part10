@@ -43,6 +43,9 @@ export const GET_USER = gql`
             rating
             createdAt
             text
+            user {
+              username
+            }
           }
         }
       }
