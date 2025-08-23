@@ -1,4 +1,4 @@
-import { FlatList, View, StyleSheet, Pressable, TextInput } from 'react-native';
+import { FlatList, View, StyleSheet, Pressable, TextInput, Alert } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useEffect, useState } from 'react';
 import useRepositories from '../hooks/useRepositories';
@@ -64,6 +64,16 @@ const ItemSeparator = () => <View style={styles.separator} />
 
 const ReviewItem = ({ rating, user, createdAt, text, repository }) => {
     const navigate = useNavigate()
+    const onDelete = (id) => {
+        Alert.alert('Delete review', 'Are you sure you want to delete this review?', [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            { text: 'Delete', onPress: () => console.log('Delete Pressed'), style:'destructive' },
+        ]);
+    }
 
     const handlePress = (id) => {
         console.log("pressed", id)
@@ -85,7 +95,7 @@ const ReviewItem = ({ rating, user, createdAt, text, repository }) => {
                         </Pressable>
                     </View>
                     <View style={styles.flexItemB}>
-                        <Pressable style={styles.pressableDelete}>
+                        <Pressable style={styles.pressableDelete} onPress={()=>onDelete(repository.id)}>
                             <Text style={styles.pressableText}>Delete Review</Text>
                         </Pressable>
                     </View>

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Image, Pressable } from 'react-native';
+import { View, StyleSheet, Image, Pressable, Alert } from 'react-native';
 import Text from './Text'
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
