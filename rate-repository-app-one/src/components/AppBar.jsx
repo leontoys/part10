@@ -65,6 +65,7 @@ const AppBar = () => {
                     user ? 
                         (<>
                             <AppBarTab style={styles.appBarTab} text="Create a Review" to="/review"></AppBarTab>
+                            <AppBarTab style={styles.appBarTab} text="My Reviews" to="/myreviews"></AppBarTab>
                             <AppBarTab style={styles.appBarTab} text="SignOut" onPress={signOut}></AppBarTab>
                         </>) :
                         (<>

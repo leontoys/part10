@@ -33,6 +33,20 @@ export const GET_USER = gql`
     me {
       id
       username
+      createdAt
+      reviews {
+        edges {
+          node {
+            id
+            userId
+            repositoryId
+            rating
+            createdAt
+            text
+          }
+        }
+      }
+      reviewCount
     }
   }
 `;

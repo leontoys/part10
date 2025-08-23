@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     }
 });
 
-const RepositoryInfo = ({ repository }) => {
+export const RepositoryInfo = ({ repository }) => {
     // Repository's information implemented in the previous exercise
 
     const {
@@ -63,7 +63,7 @@ const RepositoryInfo = ({ repository }) => {
         </>)
 };
 
-const ReviewItem = ({ review }) => {
+export const ReviewItem = ({ review }) => {
     // Single review item
     console.log("review", review)
     return (
@@ -72,7 +72,7 @@ const ReviewItem = ({ review }) => {
                 <Text style={styles.roundText}>{review.rating}</Text>
               </View>
             <View style={styles.flexItemB}>
-                <Text style={styles.boldText}>{ review.user.username }</Text>
+                <Text style={styles.boldText}>{ review?.user?.username }</Text>
                 <Text>{ format(review.createdAt,"dd.M.yyyy")}</Text>
                 <Text>{ review.text }</Text>
                 </View>
