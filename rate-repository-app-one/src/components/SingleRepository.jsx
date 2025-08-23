@@ -8,6 +8,8 @@ import * as Linking from 'expo-linking'
 import RepositoryItem from './RepositoryItem';
 import { FlatList } from 'react-native';
 import { format } from "date-fns";
+import { useNavigate } from 'react-router-native';
+
 
 const styles = StyleSheet.create({
     separator: {
@@ -81,11 +83,16 @@ export const RepositoryInfo = ({ repository }) => {
 };
 
 export const ReviewItem = ({ review }) => {
+    const navigate = useNavigate()
         const { data } = useQuery(GET_USER)
     const user = data?.me
     console.log("user",user)
     // Single review item
     console.log("review", review)
+    const handlePress = (id) => {
+        console.log("pressed", id)
+        navigate(`/${id}`)
+    }
     return (
            <View style={styles.flexContainer}>
             <View style={styles.flexItemA}>
@@ -97,7 +104,7 @@ export const ReviewItem = ({ review }) => {
                 <Text>{review.text}</Text>
                 {user ? <View style={styles.flexContainer}>
                     <View style={styles.flexItemA}>
-                        <Pressable style={styles.pressableView}>
+                        <Pressable style={styles.pressableView} onPress={()=>handlePress(review.repository.id)}>
                             <Text style={styles.pressableText}>View Repository</Text>
                         </Pressable>
                     </View>
