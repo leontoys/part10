@@ -102,18 +102,6 @@ export const ReviewItem = ({ review }) => {
                 <Text style={styles.boldText}>{ review?.user?.username }</Text>
                 <Text>{ format(review.createdAt,"dd.M.yyyy")}</Text>
                 <Text>{review.text}</Text>
-                {user ? <View style={styles.flexContainer}>
-                    <View style={styles.flexItemA}>
-                        <Pressable style={styles.pressableView} onPress={()=>handlePress(review.repository.id)}>
-                            <Text style={styles.pressableText}>View Repository</Text>
-                        </Pressable>
-                    </View>
-                    <View style={styles.flexItemB}>
-                        <Pressable style={styles.pressableDelete}>
-                            <Text style={styles.pressableText}>Delete Review</Text>
-                        </Pressable>
-                    </View>
-                </View> :<></>}
                 </View>
             </View>
     )
