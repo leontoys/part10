@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
         backgroundColor : 'white'
     },
     flexItemA: {
-        flexGrow: 1,
+    //    flexGrow: 1,
         margin : 10
     },
     flexItemB: {
-        flexGrow: 1,
+    //    flexGrow: 1,
         margin : 10
     },
     roundText: {
