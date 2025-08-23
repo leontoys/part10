@@ -3,7 +3,7 @@ import Text from './Text'
 import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
-import { GET_REPO } from '../graphql/queries';
+import { GET_REPO, GET_USER } from '../graphql/queries';
 import * as Linking from 'expo-linking'
 import RepositoryItem from './RepositoryItem';
 import { FlatList } from 'react-native';
@@ -37,6 +37,23 @@ const styles = StyleSheet.create({
     },
     boldText: {
         fontWeight : 'bold'
+    },
+    pressableView: {
+        backgroundColor: '#0366d6' , 
+        borderColor: '#0366d6',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        borderRadius : 5
+    },
+    pressableDelete: {
+        backgroundColor: 'red',
+        borderColor: 'red',
+        borderStyle: 'solid',
+        borderWidth: 3,
+        borderRadius : 5
+    },
+    pressableText: {
+        color : 'white'
     }
 });
 
@@ -64,6 +81,9 @@ export const RepositoryInfo = ({ repository }) => {
 };
 
 export const ReviewItem = ({ review }) => {
+        const { data } = useQuery(GET_USER)
+    const user = data?.me
+    console.log("user",user)
     // Single review item
     console.log("review", review)
     return (
@@ -74,7 +94,19 @@ export const ReviewItem = ({ review }) => {
             <View style={styles.flexItemB}>
                 <Text style={styles.boldText}>{ review?.user?.username }</Text>
                 <Text>{ format(review.createdAt,"dd.M.yyyy")}</Text>
-                <Text>{ review.text }</Text>
+                <Text>{review.text}</Text>
+                {user ? <View style={styles.flexContainer}>
+                    <View style={styles.flexItemA}>
+                        <Pressable style={styles.pressableView}>
+                            <Text style={styles.pressableText}>View Repository</Text>
+                        </Pressable>
+                    </View>
+                    <View style={styles.flexItemB}>
+                        <Pressable style={styles.pressableDelete}>
+                            <Text style={styles.pressableText}>Delete Review</Text>
+                        </Pressable>
+                    </View>
+                </View> :<></>}
                 </View>
             </View>
     )
