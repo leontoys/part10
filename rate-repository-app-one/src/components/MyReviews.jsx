@@ -5,10 +5,12 @@ import useRepositories from '../hooks/useRepositories';
 import { useNavigate } from 'react-router-native';
 import { Picker } from "@react-native-picker/picker";
 import { GET_USER } from '../graphql/queries'
+import { DELETEREVIEW  } from "../graphql/mutations";
 import { useApolloClient, useQuery } from '@apollo/client'
 //import {ReviewItem} from './SingleRepository';
 import { format } from "date-fns";
 import Text from './Text'
+import useDeleteReview from "../hooks/useDeleteReview";
 
 
 const styles = StyleSheet.create({
@@ -62,8 +64,12 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />
 
-const ReviewItem = ({ rating, user, createdAt, text, repository }) => {
+const ReviewItem = ({ rating, user, createdAt, text, repository, id }) => {
+    const { data, refetch } = useQuery(GET_USER);
     const navigate = useNavigate()
+    const [deleteReview] = useDeleteReview()
+
+
     const onDelete = (id) => {
         Alert.alert('Delete review', 'Are you sure you want to delete this review?', [
             {
@@ -71,7 +77,17 @@ const ReviewItem = ({ rating, user, createdAt, text, repository }) => {
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel',
             },
-            { text: 'Delete', onPress: () => console.log('Delete Pressed'), style:'destructive' },
+            {
+                text: 'Delete', onPress: async () => {
+                    console.log('Delete Pressed')
+                    try {
+                        await deleteReview({ id })  
+                        await refetch()
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }, style: 'destructive'
+            },
         ]);
     }
 
@@ -90,12 +106,12 @@ const ReviewItem = ({ rating, user, createdAt, text, repository }) => {
                 <Text>{text}</Text>
                 {<View style={styles.flexContainer}>
                     <View style={styles.flexItemA}>
-                        <Pressable style={styles.pressableView} onPress={() => handlePress(repository.id)}>
+                        <Pressable style={styles.pressableView} onPress={() => handlePress(id)}>
                             <Text style={styles.pressableText}>View Repository</Text>
                         </Pressable>
                     </View>
                     <View style={styles.flexItemB}>
-                        <Pressable style={styles.pressableDelete} onPress={()=>onDelete(repository.id)}>
+                        <Pressable style={styles.pressableDelete} onPress={()=>onDelete(id)}>
                             <Text style={styles.pressableText}>Delete Review</Text>
                         </Pressable>
                     </View>
